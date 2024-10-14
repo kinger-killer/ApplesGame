@@ -7,8 +7,11 @@ namespace AppleGame
     {
         SetSpriteSize(player.sprite, PlayerSize, PlayerSize);
         SetSpriteRelativeOrigen(player.sprite, { 0.5,0.5 });
+        player.direction = PlayerDirection::Right;
         player.position = { ScreenWidth / 2, ScreenHeight / 2 };
         player.sprite.setPosition(player.position.x, player.position.y);
+        player.statistic.speed = InitialSpeed;
+        
     }
 
     void RestartPlayer(Player& player)
@@ -43,7 +46,7 @@ namespace AppleGame
         player.sprite.setPosition(player.position.x, player.position.y);
     }
 
-    void CheckForApples(PlayerData& data, AppleData& apple, sf::Sound sound, const GameMode& mode)
+    void CheckForApples(PlayerData& data, AppleData& apple, Sounds& sound, const GameMode& mode)
     {
         for (int i = 0; i < apple.StandartApplesNum; ++i)
         {
@@ -60,7 +63,7 @@ namespace AppleGame
                 {
                     AppleRespawn(apple.Standart[i]);
                 }
-                sound.play();
+                PlaySound(SoundType::eat, sound);
                 if (mode != GameMode::withoutAcceleration)
                 { 
                 data.Player.statistic.speed += AcceleretionByEatenApples;
@@ -95,6 +98,6 @@ namespace AppleGame
     }
     void DrawPlayer(Player& player, sf::RenderWindow& window)
     {
-        window.draw(player.sprite);
+        DrawSpraite(window, player.sprite);
     }  
 }

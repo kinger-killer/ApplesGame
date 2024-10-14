@@ -29,3 +29,11 @@ void AppleGame::lemonzrestart(LemonData& data)
 		data.lemon[i].sprite.setPosition(data.lemon[i].position.x, data.lemon[i].position.y);
 	}
 }
+
+void AppleGame::DrawLemonz(LemonData& data, sf::RenderWindow& window)
+{
+	for (int i = 0; i < data.LemonzNum; ++i)
+	{
+		window.draw(data.lemon[i].sprite);
+	}
+}

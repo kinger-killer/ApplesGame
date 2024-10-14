@@ -23,6 +23,7 @@ namespace AppleGame
         int hrs = 0;
 
     };
+    void DrawSpraite(sf::RenderWindow& window, sf::Sprite& sprite);
     Time PlayTimeSaving(const float PlayTime);
     void TextInit(sf::Text& string, sf::Font& font, int textSize, pos2d textPosition, std::string text);
     bool IsCollisionCollaied(pos2d firstObjectPosition, int firstObjectSize, pos2d secondObjectPosition, int secondObjectSize);

@@ -36,6 +36,9 @@
     <ClCompile Include="UI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SoundMenager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Menu.h">
@@ -62,8 +65,11 @@
     <ClInclude Include="UI.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="SoundMenager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\git hub\ApplesGame\.gitattributes" />
+    <None Include="C:\Users\mklu0\Downloads\gitignore" />
   </ItemGroup>
 </Project>

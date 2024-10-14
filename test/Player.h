@@ -5,7 +5,7 @@
 #include "Constants.h"
 #include "Apple.h"
 #include "Lemon.h"
-
+#include "SoundMenager.h"
 namespace AppleGame
 {
 	struct PlayerUi
@@ -44,7 +44,7 @@ namespace AppleGame
 	void PlayerInit(Player& player); 
     void RestartPlayer(Player& player);
     void PlayerMovement(Player& player, float deltaTime);
-    void CheckForApples(PlayerData& data, AppleData& apple, sf::Sound sound, const GameMode& mode);
+    void CheckForApples(PlayerData& data, AppleData& apple, Sounds& sound, const GameMode& mode);
 	bool CheckForLemonz(Player& player, LemonData& lemonz);
     bool CheckBorders(Player& player);
 	void DrawPlayer(Player& player, sf::RenderWindow& window);

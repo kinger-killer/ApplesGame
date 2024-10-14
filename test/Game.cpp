@@ -37,7 +37,7 @@ namespace AppleGame
 		}
 		//loading the sounds
 		i = 0;
-		while (!DoesSoundsLoaded(game.ui.buffers))
+		while (!DoesSoundsLoaded(game.ui.Audio.Buffers))
 		{
 			if (i <= 3)
 			{
@@ -46,8 +46,8 @@ namespace AppleGame
 			}
 				++i;		
 		}
-		game.ui.sounds.eat.setBuffer(game.ui.buffers.eat);
-		game.ui.sounds.death.setBuffer(game.ui.buffers.death);
+		game.ui.Audio.Sounds.eat.setBuffer(game.ui.Audio.Buffers.eat);
+		game.ui.Audio.Sounds.death.setBuffer(game.ui.Audio.Buffers.death);
 		//loading the fonts
 		i = 0;
 		while (!DoesFontsLoaded(game.ui.font))
@@ -112,7 +112,6 @@ namespace AppleGame
 
 	void GameLose(sf::RenderWindow& window, sf::Font& font, sf::Sound& sound, const int score, const int speed, const Time time)
 	{
-			window.clear();
 			LoseScreen screen;
 			LoseScreenInit(screen, font, score, speed, time);
 			DrawLoseScreen(window, screen);
@@ -146,16 +145,16 @@ namespace AppleGame
 
 	void GameUpdate(sf::Clock& clock, GameState& game, float DeltaTime)
 	{
-		game.input.direction = GameImputReading(game.input.direction);
+		game.data.player.Player.direction = GameImputReading(game.data.player.Player.direction);
 		PlayerMovement(game.data.player.Player, DeltaTime);
 
-		std::cout << "player posion:" << game.data.player.Player.position.x << "," << game.data.player.Player.position.y;
+		
 		if (game.mode != GameMode::withoutAcceleration)
 		{
 			game.data.player.Player.statistic.speed += AccelerationByTime * DeltaTime;
 		}
-		CheckForApples(game.data.player, game.data.apple, game.ui.sounds.eat, game.mode);
-		game.status.IsGameOver = ((CheckBorders(game.data.player.Player)) || (CheckForLemonz(game.data.player.Player, game.data.lemon)) && game.mode != GameMode::immortal);
+		CheckForApples(game.data.player, game.data.apple, game.ui.Audio.Sounds, game.mode);
+		game.status.IsGameOver = ((CheckBorders(game.data.player.Player)) || (CheckForLemonz(game.data.player.Player, game.data.lemon)) && !(game.mode != GameMode::immortal));
 		if (CheckBorders(game.data.player.Player) || game.mode == GameMode::immortal)
 		{
 			BorderPortal(game.data.player);

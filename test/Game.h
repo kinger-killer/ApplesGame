@@ -5,8 +5,9 @@
 #include "Apple.h"
 #include "Lemon.h"
 #include "Player.h"
-#include "iostream"
+
 #include "UI.h"
+#include "SoundMenager.h"
 
 namespace AppleGame
 {
@@ -20,16 +21,7 @@ namespace AppleGame
 				sf::Text speed;
 				sf::Text GameOver;
 			};
-			struct Sounds
-			{
-				sf::Sound eat;
-				sf::Sound death;
-			};
-			struct SoundBuffers 
-			{
-				sf::SoundBuffer eat;
-				sf::SoundBuffer death;
-			};
+
 		struct Recurces
 		{
 			PlayerUi player;
@@ -41,8 +33,7 @@ namespace AppleGame
 			
 			Fonts font;
 			
-			Sounds sounds;
-			SoundBuffers buffers;
+			Audio Audio;
 
 			Textes texts;
 		};
@@ -69,13 +60,9 @@ namespace AppleGame
 			withoutAcceleration,
 			immortal
 		};
-		struct Input
-		{
-			PlayerDirection direction = PlayerDirection::Right;
-		};
+
 	struct GameState
 	{
-		Input input;
 		Recurces ui;
 		GameMode mode;		
 		GameStatus status;

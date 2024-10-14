@@ -2,7 +2,7 @@
 #include "SFML/Graphics.hpp"
 #include "Constants.h"
 #include "Math.h"
-
+#include "iostream"
 namespace AppleGame
 {
 	struct AppleUI

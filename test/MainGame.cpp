@@ -9,7 +9,7 @@ int main()
 	srand((int)time(nullptr));
 	using namespace AppleGame; 
 	GameState game;
-	GameInit(game);
+
 	
 	
 	while (true)//while to have a way to go back into the menu loop
@@ -46,8 +46,9 @@ int main()
 				game.mode = GameMode::standart;
 				std::cout << " the input was unclear \n chosen the standart mode";
 			}
-			
+				
 		//main loop
+		GameInit(game);
 		sf::Clock GameClock;
 		float LastTime = GameClock.getElapsedTime().asSeconds();
 		float CurrectTime = 0;
@@ -61,9 +62,12 @@ int main()
 				break;
 			}
 			//calculating time
+			CurrectTime = GameClock.getElapsedTime().asSeconds();
+			DeltaTime = CurrectTime - LastTime;
+			LastTime = CurrectTime;
 			if (game.status.IsGameOver)
 			{
-				if (soundPlayed)
+				if (!soundPlayed)
 				{
 					game.statistic.PlayTimeAsSeconds = GameClock.getElapsedTime().asSeconds();
 					GameClock.restart();
@@ -71,7 +75,7 @@ int main()
 					LastTime = 0;
 					DeltaTime = 0;
 					PlayTimeSaving(game.statistic.PlayTimeAsSeconds);
-					GameLose(window, game.ui.font.font, game.ui.sounds.death, game.data.player.Player.statistic.Score, game.data.player.Player.statistic.speed, game.statistic.playTime);
+					GameLose(window, game.ui.font.font, game.ui.Audio.Sounds.death, game.data.player.Player.statistic.Score, game.data.player.Player.statistic.speed, game.statistic.playTime);
 					soundPlayed = true;
 				}
 				else
@@ -84,11 +88,10 @@ int main()
 						game.status.IsGameOver = false;
 					}
 				}
-			}
+			}			
+
 			else
 			{
-				DeltaTime = CurrectTime - LastTime;
-				LastTime = CurrectTime;
 				GameUpdate(GameClock, game, DeltaTime);
 				DrawGame(window, game.ui, game.data);
 			}

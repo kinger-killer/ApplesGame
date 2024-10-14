@@ -4,13 +4,24 @@
 
 namespace AppleGame
 {
-    Time PlayTimeSaving(const float PlayTime)
+    void DrawSpraite(sf::RenderWindow& window, sf::Sprite& sprite)
+    {
+        window.draw(sprite);
+    }
+    Time PlayTimeSaving(float PlayTime)
     {
         Time Result;
-        Result.MiliSec = PlayTime - (int)(PlayTime / 1);
-        Result.sec = (int)(PlayTime / 1);
-        Result.min = PlayTime - 60 * (int)((PlayTime - (int)(PlayTime / 1)) / 60);
-        Result.hrs = PlayTime - 3600 * (int)((PlayTime - (int)(PlayTime / 1)) / 3600);
+
+        Result.MiliSec = (int)((PlayTime - (int)PlayTime) * 1000);
+
+        int totalSeconds = (int)PlayTime;
+
+        Result.sec = totalSeconds % 60;  
+        int totalMinutes = totalSeconds / 60;
+
+        Result.min = totalMinutes % 60; 
+        Result.hrs = totalMinutes / 60;  
+
         return Result;
     }
     void TextInit(sf::Text& string, sf::Font& font, int textSize, pos2d textPosition, std::string text)

@@ -34,4 +34,5 @@ namespace AppleGame
 	void ReselectLemonNum(LemonData& data);
 	void LemonzInit(LemonData& data);
 	void lemonzrestart(LemonData& data);
+	void DrawLemonz(LemonData& data, sf::RenderWindow& window);
 }

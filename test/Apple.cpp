@@ -13,7 +13,7 @@ namespace AppleGame
 	{
 		for (int i = 0; i < apple.StandartApplesNum; ++i)
 		{
-			window.draw(apple.Standart[i].sprite);
+			DrawSpraite(window, apple.Standart[i].sprite);
 		}
 	}
 	void AppleInit(AppleData& apple)
@@ -26,6 +26,7 @@ namespace AppleGame
 			apple.Standart[i].position.x = (2.5 * PlayerSize) + rand() / (float)RAND_MAX * ((ScreenWidth - (2.5f * PlayerSize)) - (2.5 * PlayerSize));
 			apple.Standart[i].position.y = (2.5 * PlayerSize) + rand() / (float)RAND_MAX * ((ScreenHeight - (2.5f * PlayerSize)) - (2.5 * PlayerSize));
 			apple.Standart[i].sprite.setPosition(apple.Standart[i].position.x, apple.Standart[i].position.y);
+			std::cout << std::to_string(apple.Standart[i].position.x) << "," << std::to_string(apple.Standart[i].position.y) << std::endl;
 		}
 	}
 
