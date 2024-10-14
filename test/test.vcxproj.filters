@@ -64,6 +64,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="C:\Users\mklu0\Downloads\gitignore" />
+    <None Include="..\..\..\git hub\ApplesGame\.gitattributes" />
   </ItemGroup>
 </Project>

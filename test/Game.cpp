@@ -149,7 +149,7 @@ namespace AppleGame
 		game.input.direction = GameImputReading(game.input.direction);
 		PlayerMovement(game.data.player.Player, DeltaTime);
 
-		std::cout << "player posion:" + game.data.player.Player.position.x + "," + game.data.player.Player.position.y;
+		std::cout << "player posion:" << game.data.player.Player.position.x << "," << game.data.player.Player.position.y;
 		if (game.mode != GameMode::withoutAcceleration)
 		{
 			game.data.player.Player.statistic.speed += AccelerationByTime * DeltaTime;
