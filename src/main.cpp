@@ -3,26 +3,35 @@
 
 #include <optional> 
 
+#include "player.hpp"
+
+const int SCREEN_WIDTH = 800;
+const int SCREEN_HEIGHT = 600;
+
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode({ 204,204 }), "SFML works!");
-
-	sf::Texture PIVO;
-	if (!PIVO.loadFromFile(std::string(ASSETS_PATH) + "Pivo.jpg"))
-	{
-		return EXIT_FAILURE;
-	}
-	sf::Sprite PIVO_sprite(PIVO);
-
+	player myPlayer({ SCREEN_WIDTH /2,SCREEN_HEIGHT /2},100.0f);
+	sf::RenderWindow window(sf::VideoMode({ SCREEN_WIDTH,SCREEN_HEIGHT }), "SFML works!");
+	window.setFramerateLimit(60);
+	sf::Clock gameClock;
+	gameClock.start();
+	
 	while (window.isOpen())
 	{
 		while (const std::optional event = window.pollEvent())
 		{
 			if (event->is<sf::Event::Closed>()) { window.close(); }
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
+			{ window.close();}
 		}
+		float deltaTime = gameClock.restart().asMilliseconds();
 
 		window.clear();
-		window.draw(PIVO_sprite);
+		myPlayer.Render(window);
 		window.display();
+
+		myPlayer.Update(deltaTime);
 	}
+
+	return 0;
 }

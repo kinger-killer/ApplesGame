@@ -21,7 +21,7 @@ add_executable(ApplesGame
 src/main.cpp
 )
 
-target_compile_definitions(ApplesGame PRIVATE ASSETS_PATH="${CMAKE_CURRENT_SOURCE_DIR}/ assets/")
+target_compile_definitions(ApplesGame PRIVATE ASSETS_PATH="${CMAKE_CURRENT_SOURCE_DIR}/assets/")
 
 target_link_libraries(ApplesGame PRIVATE
     SFML::Graphics
