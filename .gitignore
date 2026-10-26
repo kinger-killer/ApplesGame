@@ -10,6 +10,7 @@
 *.out
 
 # Build directories and CMake output
+/.vs/
 /build/
 /out/
 /cmake-build-*/
