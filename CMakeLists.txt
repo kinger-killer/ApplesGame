@@ -19,7 +19,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_executable(ApplesGame 
 src/main.cpp
-)
+ "Tools/AssetsManager.cpp")
 
 target_compile_definitions(ApplesGame PRIVATE ASSETS_PATH="${CMAKE_CURRENT_SOURCE_DIR}/assets/")
 

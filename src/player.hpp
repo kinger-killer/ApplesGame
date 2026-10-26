@@ -4,6 +4,8 @@
 
 #include <iostream>
 
+#include "Entity.hpp"
+
 const sf::Vector2f PLAYER_SIZE = { 20,20 };
 
 enum PlayerDirection
@@ -14,36 +16,46 @@ enum PlayerDirection
 	down
 };
 
-class player
+class player : public Entity
 {
 public:
-	player(sf::Vector2f position = {0.0f,0.0f}, float velocity = 100) : pos(position), vel(velocity)
-	{
-		body.setSize(PLAYER_SIZE);
-		body.setOrigin({ PLAYER_SIZE.x / 2,PLAYER_SIZE.y / 2 });
-		body.setPosition(pos);
-		body.setFillColor({ 150,30,20 });
-	}
+	player(sf::Texture& texture, sf::Vector2f position = { 0.0f,0.0f }, float velocity = 1)
+		: Entity(texture, position, PLAYER_SIZE), vel(velocity)
+	{}
 
 	void Update(float deltaTime) //as miliSeconds
 	{
 		for (int i = 0; i < 4; ++i)
 		{
-			if(sf::Keyboard::isKeyPressed(keys[i]))
+			if (sf::Keyboard::isKeyPressed(keys[i]))
+			{
 				dir = static_cast<PlayerDirection>(i);
+			 
+				sf::Vector2f direction = getDirection();
+				if (direction.x == 0)
+				{
+					setRotation(90);
+					if (direction.y < 0)
+						setScale({ -scale.x,scale.y });
+					else
+						setScale(scale);
+				}
+				else
+				{
+					setRotation(0);
+					if (direction.x < 0)
+						setScale({ -scale.x,scale.y });
+					else
+						setScale(scale);
+				}
+			}
 		}
 
-		deltaTime /= 1000;
-
-		pos += vel * deltaTime * getDirection();
-		body.setPosition(pos);
-
+		sf::Vector2f newPosition(vel * deltaTime * getDirection());
+		newPosition += getPosition();
+		setPosition(newPosition);
 	}
 
-	void Render(sf::RenderWindow& window)
-	{
-		window.draw(body);
-	}
 
 private:
 	
@@ -71,9 +83,8 @@ private:
 		sf::Keyboard::Key::S
 	};
 
-	sf::RectangleShape body;
+	sf::Vector2f scale = PLAYER_SIZE;
 
 	PlayerDirection dir = PlayerDirection::right;
-	sf::Vector2f pos;
 	float vel;
 };
