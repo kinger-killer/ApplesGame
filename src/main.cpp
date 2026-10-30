@@ -14,7 +14,7 @@ int main()
 	if(!playerTexture.loadFromFile(std::string(ASSETS_PATH) + "Textures/Player.png"))
 	{ return EXIT_FAILURE; }
 
-	player myPlayer(playerTexture, { SCREEN_WIDTH /2,SCREEN_HEIGHT /2},100.0f);
+	player myPlayer({ SCREEN_WIDTH /2,SCREEN_HEIGHT /2},100.0f);
 
 	sf::RenderWindow window(sf::VideoMode({ SCREEN_WIDTH,SCREEN_HEIGHT }), "SFML works!");
 	window.setFramerateLimit(60);

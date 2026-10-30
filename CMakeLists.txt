@@ -11,7 +11,7 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(SFML)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
@@ -19,7 +19,8 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_executable(ApplesGame 
 src/main.cpp
- "Tools/AssetsManager.cpp")
+Tools/AssetsManager.cpp
+)
 
 target_compile_definitions(ApplesGame PRIVATE ASSETS_PATH="${CMAKE_CURRENT_SOURCE_DIR}/assets/")
 

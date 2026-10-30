@@ -4,6 +4,7 @@
 
 #include <iostream>
 
+#include "../Tools/AssetsManager.hpp"
 #include "Entity.hpp"
 
 const sf::Vector2f PLAYER_SIZE = { 20,20 };
@@ -19,8 +20,8 @@ enum PlayerDirection
 class player : public Entity
 {
 public:
-	player(sf::Texture& texture, sf::Vector2f position = { 0.0f,0.0f }, float velocity = 1)
-		: Entity(texture, position, PLAYER_SIZE), vel(velocity)
+	player( sf::Vector2f position = { 0.0f,0.0f }, float velocity = 1)
+		: Entity( "player", position, PLAYER_SIZE), vel(velocity)
 	{}
 
 	void Update(float deltaTime) //as miliSeconds

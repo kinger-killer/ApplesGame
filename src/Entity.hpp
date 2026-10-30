@@ -2,13 +2,13 @@
 
 #include <SFML/Graphics.hpp>
 
-
+#include <string>
 
 class Entity
 {
 public:
-	Entity(sf::Texture& texture, sf::Vector2f pos = { 0.0f,0.0f }, sf::Vector2f size = { 0.0f,0.0f })
-		: body(texture), position(pos), scale(size)
+	Entity(std::string textureName, sf::Vector2f pos = { 0.0f,0.0f }, sf::Vector2f size = { 0.0f,0.0f })
+		: body(requireTexture(textureName)), position(pos), scale(size)
 	{
 		sf::FloatRect bounds = body.getLocalBounds();
 		if (scale.x >= 0.0f && scale.y >= 0.0f)
@@ -28,6 +28,17 @@ public:
 	}
 
 protected:
+	
+	static sf::Texture& requireTexture(const std::string& name)
+	{
+		auto* texture = AssetsManager::getInstance().getTexture(name);
+
+		if (!texture)
+			throw std::runtime_error("Texture not found: " + name);
+
+		return *texture;
+	}
+
 	void setPosition(sf::Vector2f pos)
 	{
 		position = pos;
