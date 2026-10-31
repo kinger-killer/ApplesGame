@@ -3,9 +3,10 @@
 #include <SFML/Graphics.hpp>
 
 #include <iostream>
+#include <memory>
 
-#include "../Tools/AssetsManager.hpp"
-#include "Entity.hpp"
+#include "entity.hpp"
+#include "ICollider.hpp"
 
 const sf::Vector2f PLAYER_SIZE = { 20,20 };
 
@@ -17,14 +18,14 @@ enum PlayerDirection
 	down
 };
 
-class player : public Entity
+class Player : public Entity, public ICollider
 {
 public:
-	player( sf::Vector2f position = { 0.0f,0.0f }, float velocity = 1)
+	Player( sf::Vector2f position = { 0.0f,0.0f }, float velocity = 1)
 		: Entity( "player", position, PLAYER_SIZE), vel(velocity)
 	{}
 
-	void Update(float deltaTime) //as miliSeconds
+	virtual void Update(float deltaTime) override //as miliSeconds
 	{
 		for (int i = 0; i < 4; ++i)
 		{
@@ -57,6 +58,12 @@ public:
 		setPosition(newPosition);
 	}
 
+	virtual sf::Shape& getCollider() override
+	{
+		return getCircleBounds();
+	}
+
+	virtual void onHit() {};
 
 private:
 	

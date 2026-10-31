@@ -4,9 +4,18 @@
 #include <optional> 
 
 #include "player.hpp"
+#include "apple.hpp"
 
 const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT = 600;
+
+class appleObserver : public IObserver
+{
+	virtual void notify(Event& event) override
+	{
+		std::cout << "+1 point\n";
+	}
+};
 
 int main()
 {
@@ -14,7 +23,11 @@ int main()
 	if(!playerTexture.loadFromFile(std::string(ASSETS_PATH) + "Textures/Player.png"))
 	{ return EXIT_FAILURE; }
 
-	player myPlayer({ SCREEN_WIDTH /2,SCREEN_HEIGHT /2},100.0f);
+	Player myPlayer({ SCREEN_WIDTH /2,SCREEN_HEIGHT /2},100.0f);
+
+	Apple myApple({ 200.0f,400.0f });
+	std::shared_ptr<appleObserver> observer = std::make_shared<appleObserver>();
+	myApple.subscribe(observer);
 
 	sf::RenderWindow window(sf::VideoMode({ SCREEN_WIDTH,SCREEN_HEIGHT }), "SFML works!");
 	window.setFramerateLimit(60);
@@ -33,10 +46,12 @@ int main()
 		float deltaTime = gameClock.restart().asSeconds();
 
 		window.clear();
+		myApple.Render(window);
 		myPlayer.Render(window);
 		window.display();
 
 		myPlayer.Update(deltaTime);
+		myPlayer.checkCollision(myApple);
 	}
 
 	return 0;

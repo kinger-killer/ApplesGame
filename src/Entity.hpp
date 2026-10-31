@@ -4,6 +4,8 @@
 
 #include <string>
 
+#include "../Tools/AssetsManager.hpp"
+
 class Entity
 {
 public:
@@ -20,6 +22,9 @@ public:
 		}
 		
 		body.setOrigin({ bounds.size.x / 2,bounds.size.y / 2 });
+		body.setPosition(position);
+
+		BoundsInit(position, body.getGlobalBounds().size);
 	}
 	
 	virtual void Render(sf::RenderWindow& window)
@@ -27,22 +32,26 @@ public:
 		window.draw(body);
 	}
 
+	virtual void Update(float deltaTime) = 0;
+
 protected:
-	
-	static sf::Texture& requireTexture(const std::string& name)
+
+	sf::RectangleShape& getRectBounds()
 	{
-		auto* texture = AssetsManager::getInstance().getTexture(name);
+		return rectBounds;
+	}
 
-		if (!texture)
-			throw std::runtime_error("Texture not found: " + name);
-
-		return *texture;
+	sf::CircleShape& getCircleBounds()
+	{
+		return circleBounds;
 	}
 
 	void setPosition(sf::Vector2f pos)
 	{
 		position = pos;
 		body.setPosition(position);
+		rectBounds.setPosition(position);
+		circleBounds.setPosition(position);
 	}
 	[[nodiscard]] sf::Vector2f getPosition()
 	{
@@ -77,4 +86,35 @@ private:
 	sf::Vector2f position;
 	sf::Vector2f scale;
 	sf::Sprite body;
+
+	sf::CircleShape circleBounds;
+	sf::RectangleShape rectBounds;
+
+
+	static sf::Texture& requireTexture(const std::string& name)
+	{
+		auto* texture = AssetsManager::getInstance().getTexture(name);
+
+		if (!texture)
+			throw std::runtime_error("Texture not found: " + name);
+
+		return *texture;
+	}
+
+	void BoundsInit(sf::Vector2f position, sf::Vector2f scale)
+	{
+		//circle bounds init;
+		circleBounds.setRadius((scale.x / 2 + scale.y / 2) / 2);
+		circleBounds.setOrigin({ scale.x / 2,scale.y / 2 });
+		circleBounds.setPosition(position);
+
+		//rectangle bounds init
+		auto rb = circleBounds.getLocalBounds();
+		float rectangleDeltaX = scale.x / rb.size.x;
+		float rectangleDeltaY = scale.y / rb.size.y;
+
+		rectBounds.setScale({ rectangleDeltaX,rectangleDeltaY });
+		rectBounds.setOrigin({ scale.x / 2,scale.y / 2 });
+		rectBounds.setPosition(position);
+	}
 };

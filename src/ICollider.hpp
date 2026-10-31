@@ -2,7 +2,6 @@
 
 #include <SFML/Graphics.hpp>
 
-#include <typeinfo>
 #include <optional>
 #include <algorithm>
 class ICollider
