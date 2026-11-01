@@ -4,8 +4,7 @@
 
 struct Event
 {
-
-	~Event() = default;
+	virtual ~Event() = default;
 };
 
 

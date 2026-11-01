@@ -3,11 +3,19 @@
 #include <SFML/Graphics.hpp>
 
 #include "ICollider.hpp"
-#include "Observer.hpp"
+#include "IObserver.hpp"
 
 #include "entity.hpp"
 
 const sf::Vector2f APPLE_SIZE = { 20,20 };
+
+class Apple;
+
+struct AppleEvent : public Event
+{
+	AppleEvent(Apple* src) : sender(src) {}
+	Apple* sender;
+};
 
 class Apple : public Entity, public ICollider, public ISubject 
 {
@@ -26,7 +34,7 @@ public:
 private:
 	virtual void onHit() override
 	{
-		Event event;
+		AppleEvent event (this);
 		Emit(event);
 	}
 
